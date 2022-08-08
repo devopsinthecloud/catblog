@@ -1,0 +1,59 @@
+steps:
+  - name: gcr.io/cloud-builders/gsutil
+    id: cache-download
+    args:
+      - cp
+      - 'gs://$_CACHE_BUCKET_NAME/latest-blog.tar'
+      - '.'
+  - name: ubuntu
+    entrypoint: tar
+    args:
+      - '-xf'
+      - latest-blog.tar
+  - name: remarksolutions/ci-image:cloudbuild
+    args:
+      - install
+    entrypoint: bundle
+  - name: remarksolutions/ci-image:cloudbuild
+    env:
+      - RAILS_ENV=production
+      - SECRET_KEY_BASE=abc
+    args:
+      - exec
+      - rake
+      - 'assets:precompile'
+    entrypoint: bundle
+  - name: ubuntu
+    id: build-done
+    entrypoint: tar
+    args:
+      - '-cf'
+      - latest-blog.tar
+      - vendor/bundle
+  - name: 'gcr.io/kaniko-project/executor:latest'
+    args:
+      - --destination=europe-west1-docker.pkg.dev/$PROJECT_ID/blog/blog:$BUILD_ID
+      - --cache=true     
+      - --cache-ttl=168h
+  - name: ubuntu
+    args:
+      - '-c'
+      - >-
+        find k8s/ -type f -exec sed -i "s|CONTAINER_URL_HERE|europe-west1-docker.pkg.dev/$PROJECT_ID/blog/blog:$BUILD_ID|g" {} + &&
+        find k8s/ -type f -exec sed -i "s|REPLICAS_HERE|$_REPLICAS|g" {} +
+    entrypoint: bash
+  - name: gcr.io/cloud-builders/gke-deploy
+    args:
+      - apply
+      - '-n=default'
+      - '-t=9m0s'
+      - '--filename=k8s/'
+      - '--location=europe-west1-b'
+      - '--cluster=cluster'
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      - 'cp'
+      - latest-blog.tar
+      - 'gs://$_CACHE_BUCKET_NAME/latest-blog.tar'
+    waitFor:
+      - build-done

@@ -1,0 +1,17 @@
+<ul>
+  <% @users.each do |u| %>
+    <li>
+      <%= u.email %>
+      <br>
+      <%= image_tag u.avatar, with: '100px', height: '100px' if u.avatar.attached? %>
+      <%=
+        link_to "Delete", 
+        user_path(u), 
+        method: :delete, 
+        data: { turbo_confirm: "Really delete this user?", turbo_method: "delete" } 
+      %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "All Articles", articles_path %>

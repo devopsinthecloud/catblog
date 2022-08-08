@@ -1,0 +1,16 @@
+<h1>Galleries</h1>
+<link href='style.css' rel='stylesheet'>
+
+Our blog has <%= Gallery.count %> galleries
+
+<ul>
+  <% @galleries.each do |gallery| %>
+    <% unless gallery.archived? %>
+      <li>
+        <%= link_to gallery.title, gallery %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= link_to "Add Gallery", new_gallery_path %>

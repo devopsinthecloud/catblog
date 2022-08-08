@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Articles</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+
+
+
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= javascript_importmap_tags %>
+</head>
+
+
+<body>
+<% if notice.present? %>
+<p class="notice notice-top"><%= notice %></p>
+<% end %>
+
+
+
+<% if alert.present? %>
+<p class="notice notice-top is--warning"><%= alert %></p>
+<% end %>
+
+
+<% if current_user %>
+  Logged in as <%= current_user.email %>.
+  <%= link_to "Log Out", logout_path %>
+<% else %>
+  <%= link_to "Sign Up", signup_path %> or
+  <%= link_to "Log In", login_path %>
+<% end %>
+
+<%= link_to "All Galleries", galleries_path %>
+<%= yield %>
+
+<div style="position: absolute; bottom: 8px; right: 8px; color: silver; z-index: 100000; pointer-events: none">
+1.0
+</div>
+</body>
+</html>

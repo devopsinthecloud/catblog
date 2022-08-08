@@ -1,0 +1,13 @@
+<h1><%= @gallery.title %></h1>
+
+<p><%= @gallery.body %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_gallery_path(@gallery) %></li>
+  <li><%= link_to "Destroy", gallery_path(@gallery), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
+
+<%= link_to "All Articles", galleries_path %>

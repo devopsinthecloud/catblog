@@ -1,0 +1,240 @@
+/* li {
+    color:darkred;
+  }
+
+.main-list li a {
+    color:rgb(192, 102, 53)
+}
+
+.main-list li a:hover {
+    color:rgb(154, 0, 82)
+}
+
+li:hover {
+    color:deeppink;
+  }
+
+
+a:hover {
+    color: darkmagenta
+}
+
+a {
+    color: palevioletred;
+}
+
+h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+} */
+
+@font-face {
+    font-family: "Merriweather-Black";
+    src: url("Merriweather-Black.ttf"); 
+  }
+  
+  @font-face {
+    font-family: "Inter-Bold";
+    src: url("Inter-Bold.ttf"); 
+  }
+  
+  @font-face {
+    font-family: "Inter-Regular";
+    src: url("Inter-Regular.ttf"); 
+  }
+  
+  :root {
+    --primary-color: #691010;
+    --primary-color-dark: #440000;
+    --black-font: #111111;
+    --white-font: #eeeeee;
+    --white-hover-font: #cccccc;
+    --blog-post-background: #f5f5f5;
+    --footer-font-color: #666666;
+    --footer-border-color: #ececec;
+  }
+  
+  html, body {
+      margin: 0;
+      height: 100%;
+  }
+  
+  body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
+  
+  h1, h2 {
+      margin: 0;
+  }
+  
+  h2 {
+      height: 6rem;
+      line-height: 6rem;
+      font-family: "Merriweather-Black";
+  }
+  
+  ul {
+      padding: 0;
+      list-style: none;
+  }
+  
+  a:link {
+      text-decoration: none;
+  }
+  
+  header {
+      background-color: var(--primary-color);
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+  
+  main {
+      color: var(--black-font);
+      font-family: "Inter-Regular";
+  }
+  
+  footer {
+      padding-top: 3rem;
+  }
+  
+  .horizontally-aligned {
+       padding: 0rem 2rem;
+       margin-left: auto;
+       margin-right: auto;
+       max-width: 980px;
+  }
+  
+  .width-70 {
+      width: 70%;
+  }
+  
+  .width-15 {
+      width: 15%;
+  }
+  
+  .header-content, .footer-content {
+      display: flex;
+      height: 100%;
+  }
+  
+  .header-content > h1 > a:link, .header-content > div > a:link {
+      color: var(--white-font);
+      padding: 1rem 0;
+  }
+  
+  .header-content > .width-70, .header-content > .width-15 {
+      display: flex;
+      align-items: center;
+      font-family: "Inter-Bold";
+  }
+  
+  .header-content > .width-15 {
+      justify-content: center;
+      font-family: "Inter-Regular";
+  }
+  
+  .header-link:hover {
+      color: var(--white-hover-font) !important;
+  }
+  
+  .blog-post {
+      height: 16rem;
+      display: flex;
+      background-color: var(--blog-post-background);
+      margin: 3rem 0;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  }
+  
+  .blog-post:nth-of-type(2n+1) {
+      flex-direction: row-reverse;
+  }
+  
+  .blog-post > a > img {
+      height: 16rem;
+      width: 24rem;
+      object-fit: cover;
+      display: block;
+  }
+  
+  .blog-post-description {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .blog-post-description > a {
+      color: var(--primary-color);
+      font-family: "Merriweather-Black";
+      font-size: 1.5rem;
+      height: 25%;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      margin: 1rem;
+      padding: 1rem;
+  }
+  
+  .blog-post-description > a:hover {
+      color: var(--primary-color-dark);
+  }
+  
+  .blog-post-description > div {
+      font-family: "Inter-Regular";
+      line-height: 1.25;
+      height: 75%;
+      padding: 0rem 2rem 2rem 2rem;
+      text-align: justify;
+  }
+  
+  .bottom-buttons {
+      width: 24rem;
+      display: flex;
+      justify-content: space-around;
+  }
+  
+  .custom-button {
+      font-family: "Inter-Bold";
+      text-align: center;
+      color: var(--white-font);
+      background-color: var(--primary-color);
+      cursor: pointer;
+      width: 7rem;
+      padding: 1rem 2rem;
+      border-radius: 2rem;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+  
+  .custom-button:hover {
+      background-color: var(--primary-color-dark);
+  }
+  
+  .footer-content {
+      font-family: "Inter-Regular";
+      color: var(--footer-font-color);
+      height: 8rem;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid var(--footer-border-color);
+      box-sizing: border-box;
+  }
+  
+  @media (max-width: 60em) {
+      .blog-post {
+          height: auto;
+      }
+  }
+  
+  @media (max-width: 40em) {
+      .blog-post {
+          flex-direction: column !important;
+      }
+      .blog-post > a > img {
+          width: 100%;
+      }
+      .bottom-buttons {
+          width: inherit;
+      }
+      .horizontally-aligned {
+          margin: 0;
+      }
+  }
